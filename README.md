@@ -19,9 +19,9 @@ Copyright (c) 2013-2018 brinkqiang (brink.qiang@gmail.com)
 ## Intro
 rc4 for C/C++/C#
 ```cpp
-#include <stdio.h>
 
 #include "dmrc.hpp"
+#include <iostream>
 
 int main(int argc, char *argv[])
 {
@@ -33,6 +33,8 @@ int main(int argc, char *argv[])
     std::string strOut = oRC.Encrypt((char*)strData.c_str(), strData.size());
 
     oRC.Decrypt(strOut);
+
+    std::cout << strOut << std::endl;
 
     return 0;
 }
