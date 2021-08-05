@@ -46,13 +46,18 @@ public class CDMRC
     arc4_context m_oEncryptContext = new arc4_context();
     arc4_context m_oDecryptContext = new arc4_context();
 
-    public void SetKey(byte[] key, uint keylen)
+    public void SetKey(byte[] key, int keylen)
     {
         SetEncryptKey(key, keylen);
         SetDecryptKey(key, keylen);
     }
-
-    public void SetEncryptKey(byte[] key, uint keylen)
+    public void SetKey(string key)
+    {
+        byte[] key2 = System.Text.Encoding.ASCII.GetBytes(key);
+        SetEncryptKey(key2, key2.Length);
+        SetDecryptKey(key2, key2.Length);
+    }
+    public void SetEncryptKey(byte[] key, int keylen)
     {
         int i, j, a;
         uint k;
@@ -79,7 +84,7 @@ public class CDMRC
         }
     }
 
-    public void SetDecryptKey(byte[] key, uint keylen)
+    public void SetDecryptKey(byte[] key, int keylen)
     {
         int i, j, a;
         uint k;
@@ -153,49 +158,27 @@ public class CDMRC
         return arc4_crypt(m_oDecryptContext, input, 0, input, 0, input.Length);
     }
 
-    public string Encrypt(string input)
-    {
-        byte[] InArray = System.Text.Encoding.Default.GetBytes(input);
-
-        arc4_crypt(m_oEncryptContext, InArray, 0, InArray, 0, InArray.Length);
-
-        return System.Text.Encoding.Default.GetString(InArray);
-    }
-
-    public string Decrypt(string input)
-    {
-        byte[] InArray = System.Text.Encoding.Default.GetBytes(input);
-
-        arc4_crypt(m_oDecryptContext, InArray, 0, InArray, 0, InArray.Length);
-
-        return System.Text.Encoding.Default.GetString(InArray);
-    }
-
     static void test(string[] args)
     {
         CDMRC oArc4 = new CDMRC();
 
         string strInput = "data";
 
-        byte[] InArray = System.Text.Encoding.Default.GetBytes(strInput);
-        byte[] OutArray = System.Text.Encoding.Default.GetBytes(strInput);
+        byte[] InArray = System.Text.Encoding.ASCII.GetBytes(strInput);
+        byte[] OutArray = System.Text.Encoding.ASCII.GetBytes(strInput);
 
         oArc4.Encrypt(InArray, 0, OutArray, 0, InArray.Length);
         oArc4.Decrypt(OutArray, 0, InArray, 0, OutArray.Length);
 
-        string strOut = System.Text.Encoding.Default.GetString(InArray);
+        string strOut = System.Text.Encoding.ASCII.GetString(InArray);
         Console.WriteLine(strOut);
-
-        string strOut2 = oArc4.Encrypt(strOut);
-        string strOut3 = oArc4.Decrypt(strOut2);
-        Console.WriteLine(strOut3);
 
         oArc4.Encrypt(InArray);
         oArc4.Decrypt(InArray);
 
-        string strOut4 = System.Text.Encoding.Default.GetString(InArray);
+        string strOut2 = System.Text.Encoding.ASCII.GetString(InArray);
 
-        Console.WriteLine(strOut4);
+        Console.WriteLine(strOut2);
     }
 }
 
