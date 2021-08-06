@@ -48,14 +48,14 @@ public:
     void SetEncryptKey(const std::string& strEncryptKey)
     {
         m_strEncryptKey = strEncryptKey;
-        m_strEncryptKey.resize(256);
+        //m_strEncryptKey.resize(256);
         arc4_setup(&m_oEncryptContext, (const unsigned char*)m_strEncryptKey.c_str(), (unsigned int)m_strEncryptKey.size());
     }
 
     void SetDecryptKey(const std::string& strDecryptKey)
     {
         m_strDecryptKey = strDecryptKey;
-        m_strDecryptKey.resize(256);
+        //m_strDecryptKey.resize(256);
         arc4_setup(&m_oDecryptContext, (const unsigned char*)m_strDecryptKey.c_str(), (unsigned int)m_strDecryptKey.size());
     }
 
