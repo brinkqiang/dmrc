@@ -10,9 +10,10 @@ int main(int argc, char *argv[])
     CDMRC oRC;
     oRC.SetKey("31323334");
 
-    char buf[] = {0x0A, 0x01, 0x31};
+    char buf[] = {0x08, 0x01};
 
-    std::string strOut = oRC.Encrypt(buf, 3);
+    std::string strOut;
+    strOut.assign(oRC.Encrypt(buf, sizeof(buf)), sizeof(buf));
 
     std::cout << strtk::convert_bin_to_hex(strOut) << std::endl;
 
