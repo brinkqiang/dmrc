@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
 
     oRC.Decrypt(strOut);
 
-    std::cout << strOut << std::endl;
+    std::cout << strtk::convert_bin_to_hex(strOut) << std::endl;
 
     return 0;
 }
